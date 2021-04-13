@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Dynamo
 {
@@ -15,21 +8,23 @@ namespace Dynamo
         {
             var compiler = new Compiler();
 
-            var asm = compiler.CreateAssembly(@"C:\Code\dynamo\test.cs");
-            dynamic test1 = asm.CreateInstance("Test.Test1");
+            Console.WriteLine("1. Run this app without the VS debugger attached (Ctrl+F5 in VS)");
+            Console.WriteLine("2. Open the `/sample` subfolder in VS Code and hit F5 to attach to the process");
+            Console.WriteLine("3. Choose `Dynamo.exe` from the list");
+            Console.WriteLine("4. Put a breakpoint in VS Code into the `test.cs` file somewhere");
+
+            Console.WriteLine("\r\nCompiling `/sample/test.cs`...\r\n");
+            var asm = compiler.CreateAssembly(@"../../../../sample/test.cs");
+
+            Console.WriteLine("Now hit `Enter` and watch as your breakpoint gets hit");
 
             Console.ReadLine();
+            Console.WriteLine("Calling Test1().RunTest()");
+            dynamic test1 = asm.CreateInstance("Test.Test1");
             test1.RunTest(12);
 
-            //CompilerResult dll = compiler.Compile(@"C:\Code\dynamo\test.cs");
-
-            //Assembly asm = Assembly.Load(dll.PeStream, dll.PdbStream);
-            //dynamic test1 = asm.CreateInstance("Test.Test1");
-
-            //File.WriteAllBytes(@"C:\temp\test.pdb", dll.PdbStream);
-            //test1.RunTest();
-
-            // var runner = new Runner();
+            Console.WriteLine("Done. Press enter to exit");
+            Console.ReadLine();
         }
     }
 }
